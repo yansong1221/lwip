@@ -6,16 +6,17 @@ project(lwIP)
 
 # Example lwIP application
 set(LWIP_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+set(LWIP_INCLUDE_DIRS ${LWIP_DIR}/src/include)
 
 set (LWIP_DEFINITIONS LWIP_DEBUG=1)
 
-if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
-  add_subdirectory(${LWIP_DIR}/contrib/ports/win32/example_app)
-elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux" OR ${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
-  add_subdirectory(${LWIP_DIR}/contrib/ports/unix/example_app)
-else()
-  message(WARNING "Host ${CMAKE_SYSTEM_NAME} is not supported to build example_app")
-endif()
+# if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
+#   add_subdirectory(${LWIP_DIR}/contrib/ports/win32/example_app)
+# elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux" OR ${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
+#   add_subdirectory(${LWIP_DIR}/contrib/ports/unix/example_app)
+# else()
+#   message(WARNING "Host ${CMAKE_SYSTEM_NAME} is not supported to build example_app")
+# endif()
 
 # Source package generation
 set(CPACK_SOURCE_GENERATOR "ZIP")
@@ -29,7 +30,7 @@ include(CPack)
 
 # Generate docs before creating source package
 include(src/Filelists.cmake)
-add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source)
-if (TARGET lwipdocs)
-  add_dependencies(dist lwipdocs)
-endif()
+# add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source)
+# if (TARGET lwipdocs)
+#   add_dependencies(dist lwipdocs)
+# endif()

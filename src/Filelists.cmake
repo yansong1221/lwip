@@ -256,38 +256,38 @@ set(lwipallapps_SRCS
 configure_file(${LWIP_DIR}/src/include/lwip/init.h.cmake.in ${LWIP_DIR}/src/include/lwip/init.h)
 
 # Documentation
-set(DOXYGEN_DIR ${LWIP_DIR}/doc/doxygen)
-set(DOXYGEN_OUTPUT_DIR output)
-set(DOXYGEN_IN  ${LWIP_DIR}/doc/doxygen/lwip.Doxyfile.cmake.in)
-set(DOXYGEN_OUT ${LWIP_DIR}/doc/doxygen/lwip.Doxyfile)
-configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT})
+# set(DOXYGEN_DIR ${LWIP_DIR}/doc/doxygen)
+# set(DOXYGEN_OUTPUT_DIR output)
+# set(DOXYGEN_IN  ${LWIP_DIR}/doc/doxygen/lwip.Doxyfile.cmake.in)
+# set(DOXYGEN_OUT ${LWIP_DIR}/doc/doxygen/lwip.Doxyfile)
+# configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT})
 
-find_package(Doxygen)
-if (DOXYGEN_FOUND)
-    message(STATUS "Doxygen build started")
+# find_package(Doxygen)
+# if (DOXYGEN_FOUND)
+#     message(STATUS "Doxygen build started")
 
-    add_custom_target(lwipdocs
-        COMMAND ${CMAKE_COMMAND} -E remove_directory ${DOXYGEN_DIR}/${DOXYGEN_OUTPUT_DIR}/html
-        COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
-        WORKING_DIRECTORY ${DOXYGEN_DIR}
-        COMMENT "Generating API documentation with Doxygen"
-        VERBATIM)
-else (DOXYGEN_FOUND)
-    message(STATUS "Doxygen needs to be installed to generate the doxygen documentation")
-endif (DOXYGEN_FOUND)
+#     add_custom_target(lwipdocs
+#         COMMAND ${CMAKE_COMMAND} -E remove_directory ${DOXYGEN_DIR}/${DOXYGEN_OUTPUT_DIR}/html
+#         COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
+#         WORKING_DIRECTORY ${DOXYGEN_DIR}
+#         COMMENT "Generating API documentation with Doxygen"
+#         VERBATIM)
+# else (DOXYGEN_FOUND)
+#     message(STATUS "Doxygen needs to be installed to generate the doxygen documentation")
+# endif (DOXYGEN_FOUND)
 
 # lwIP libraries
 add_library(lwipcore EXCLUDE_FROM_ALL ${lwipnoapps_SRCS})
 target_compile_options(lwipcore PRIVATE ${LWIP_COMPILER_FLAGS})
 target_compile_definitions(lwipcore PRIVATE ${LWIP_DEFINITIONS}  ${LWIP_MBEDTLS_DEFINITIONS})
-target_include_directories(lwipcore PRIVATE ${LWIP_INCLUDE_DIRS} ${LWIP_MBEDTLS_INCLUDE_DIRS})
+target_include_directories(lwipcore PUBLIC ${LWIP_INCLUDE_DIRS} ${LWIP_MBEDTLS_INCLUDE_DIRS})
 
-add_library(lwipallapps EXCLUDE_FROM_ALL ${lwipallapps_SRCS})
-target_compile_options(lwipallapps PRIVATE ${LWIP_COMPILER_FLAGS})
-target_compile_definitions(lwipallapps PRIVATE ${LWIP_DEFINITIONS}  ${LWIP_MBEDTLS_DEFINITIONS})
-target_include_directories(lwipallapps PRIVATE ${LWIP_INCLUDE_DIRS} ${LWIP_MBEDTLS_INCLUDE_DIRS})
+# add_library(lwipallapps EXCLUDE_FROM_ALL ${lwipallapps_SRCS})
+# target_compile_options(lwipallapps PRIVATE ${LWIP_COMPILER_FLAGS})
+# target_compile_definitions(lwipallapps PRIVATE ${LWIP_DEFINITIONS}  ${LWIP_MBEDTLS_DEFINITIONS})
+# target_include_directories(lwipallapps PRIVATE ${LWIP_INCLUDE_DIRS} ${LWIP_MBEDTLS_INCLUDE_DIRS})
 
-add_library(lwipmbedtls EXCLUDE_FROM_ALL ${lwipmbedtls_SRCS})
-target_compile_options(lwipmbedtls PRIVATE ${LWIP_COMPILER_FLAGS})
-target_compile_definitions(lwipmbedtls PRIVATE ${LWIP_DEFINITIONS}  ${LWIP_MBEDTLS_DEFINITIONS})
-target_include_directories(lwipmbedtls PRIVATE ${LWIP_INCLUDE_DIRS} ${LWIP_MBEDTLS_INCLUDE_DIRS})
+# add_library(lwipmbedtls EXCLUDE_FROM_ALL ${lwipmbedtls_SRCS})
+# target_compile_options(lwipmbedtls PRIVATE ${LWIP_COMPILER_FLAGS})
+# target_compile_definitions(lwipmbedtls PRIVATE ${LWIP_DEFINITIONS}  ${LWIP_MBEDTLS_DEFINITIONS})
+# target_include_directories(lwipmbedtls PRIVATE ${LWIP_INCLUDE_DIRS} ${LWIP_MBEDTLS_INCLUDE_DIRS})
